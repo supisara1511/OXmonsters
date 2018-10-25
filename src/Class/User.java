@@ -3,23 +3,14 @@ package Class;
 import com.mongodb.DBObject;
 import java.util.ArrayList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author FRAME
- */
-
 public class User {
+
     private String userID;
     private String name;
     private String username;
     private String password;
     private String picture;
-    private int score;
+    private double score;
     private History[] history;
 
     public User(String name, String username, String password, String picture) {
@@ -27,16 +18,17 @@ public class User {
         this.username = username;
         this.password = password;
         this.picture = picture;
-        this.score = 0;
-        this.history = new History[0]; 
+        this.score = 0.0f;
     }
-    
-     public User(DBObject obj){
+
+    public User(DBObject obj) {
+        System.out.println(obj);
         this.name = obj.get("name").toString();
         this.username = obj.get("username").toString();
         this.password = obj.get("password").toString();
-        this.score = (int)obj.get("score");
-        this.picture = obj.get("picture").toString();
+        this.score = Double.parseDouble(obj.get("score").toString()) ;
+        System.out.println(score);
+        this.picture = obj.get("pic").toString();
     }
 
     public String getUserID() {
@@ -79,11 +71,11 @@ public class User {
         this.picture = picture;
     }
 
-    public int getScore() {
-        return score;
+    public double getScore() {
+        return this.score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
@@ -94,8 +86,5 @@ public class User {
     public void setHistore(ArrayList<History> histore) {
         this.history = history;
     }
-    
-    
-    
-    
+
 }

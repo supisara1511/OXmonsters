@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package page;
+import Class.User;
 import Service.WelcomeService;
+
 
 /**
  *
@@ -15,14 +17,19 @@ public class FormWelcome extends javax.swing.JFrame {
     /**
      * Creates new form fromWelcome
      */
+    private User user;
     public FormWelcome() {
         initComponents();
     }
     
      public FormWelcome(String username) {
+        
         this.username = username;
         initComponents();
-        String name = WelcomeService.getData(this.username);
+        User user = WelcomeService.getUser(this.username);
+        this.user = user;
+         System.err.println(user);
+        String name = user.getName();
         labelName.setText(labelName.getText() + " " + name);
     }
 
@@ -91,7 +98,7 @@ public class FormWelcome extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-         FormLobby formLobby = new  FormLobby(username);
+         FormLobby formLobby = new  FormLobby(user);
          formLobby.setVisible(true);
          this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked

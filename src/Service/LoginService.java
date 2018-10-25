@@ -5,6 +5,7 @@
  */
 package Service;
 import Class.User;
+import Database.UserDao;
 
 /**
  *
@@ -15,15 +16,24 @@ public class LoginService {
    
 
     public static int checkUser(String username, String password) { 
-        if(username.equals("p") && password.equals("1234")){
+        User user = UserDao.get(username);
+        if(user == null){
+            return 1;
+        }else if(username.equals(user.getUsername()) && password.equals(user.getPassword())){
             return 0;
-        }else if (username.equals("p")){
-            
         }else{
-            
+             return 2;
         }
-        return 0;
+       
     }
+    
+    public static User getUser(String username){   
+        User user = UserDao.get(username);
+        System.out.println(user);
+        return user;
+    }
+    
+    
 
    
 }

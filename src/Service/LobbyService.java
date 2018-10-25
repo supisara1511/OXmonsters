@@ -7,6 +7,7 @@ package Service;
 
 import Class.History;
 import Class.User;
+import Database.UserDao;
 import java.util.ArrayList;
 
 /**
@@ -21,18 +22,8 @@ public class LobbyService {
     private static ArrayList<History> history = new ArrayList<History>();
 
     public static ArrayList<User> getPlaerAll() {
-        arrUser.add(new User("snack", "supisara1511", "123456789", "123456"));
-        arrUser.add(new User("snackfgfgf", "supisara2540", "123456789", "123456"));
-        arrUser.add(new User("snack", "supisara1511", "123456789", "123456"));
-        arrUser.add(new User("snackfgfgf", "supisara2540", "123456789", "123456"));
-        arrUser.add(new User("snack", "supisara1511", "123456789", "123456"));
-        arrUser.add(new User("snackfgfgf", "supisara2540", "123456789", "123456"));
-        arrUser.add(new User("snack", "supisara1511", "123456789", "123456"));
-        arrUser.add(new User("snackfgfgf", "supisara2540", "123456789", "123456"));
-        arrUser.add(new User("snack", "supisara1511", "123456789", "123456"));
-        arrUser.add(new User("snackfgfgf", "supisara2540", "123456789", "123456"));
-        arrUser.add(new User("snack", "supisara1511", "123456789", "123456"));
-        arrUser.add(new User("snackfgfgf", "supisara2540", "123456789", "123456"));
+        arrUser = UserDao.getAll();
+        System.out.println(arrUser);
         return arrUser;
     }
 

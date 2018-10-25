@@ -38,10 +38,10 @@ public class FormLobby extends javax.swing.JFrame {
         initComponents();
     }
 
-    public FormLobby(String username) {
+    public FormLobby(User user) {
         initComponents();
+        this.user = user;
         this.username = username;
-        User user = LobbyService.getUser("supisara1511");
         listshow.setVisible(true);
         listRank.setVisible(false);
         userArr = LobbyService.getPlaerAll();
@@ -71,6 +71,7 @@ public class FormLobby extends javax.swing.JFrame {
         int u = 0;
         int i = 1;
         for (User rank : userArr) {
+            System.out.println(rank.getName());
             listRank.add(new RankItem(rank, 0, u, i));
             u += 50;
             listRank.revalidate();

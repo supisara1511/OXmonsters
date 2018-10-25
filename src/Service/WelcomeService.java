@@ -5,6 +5,8 @@
  */
 package Service;
 import Class.User;
+import Class.User;
+import Database.UserDao;
 /**
  *
  * @author MYSNACK
@@ -13,7 +15,9 @@ public class WelcomeService {
     private User user;
     
     
-    public static String getData(String username){             
-        return "545";
+    public static User getUser(String username){   
+        User user = UserDao.get(username);
+        System.out.println(user);
+         return user;
     }
 }

@@ -12,8 +12,6 @@ import javax.swing.SwingConstants;
 import Class.User;
 import Service.LoginService;
 
-
-
 /**
  *
  * @author Demon
@@ -24,8 +22,6 @@ public class FormLogin extends javax.swing.JFrame {
      * Creates new form LoginPage
      */
     private int xMouse, yMouse;
-    
-    
 
     public FormLogin() {
         initComponents();
@@ -220,28 +216,25 @@ public class FormLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_BG_LoginMousePressed
 
     private void buttonLoginMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLoginMousePressed
-            String username = textboxUsername.getText();
-            String password = String.valueOf(textboxPassword.getPassword());
-            if (username.isEmpty() || password.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "กรุณากรอกข้อมูลให้ครบ");
-            }else {
-                   int status = LoginService.checkUser(username,password);
-                   if(status == 0){
-                       FormLobby formLobby = new  FormLobby(username);
-                       formLobby.setVisible(true);
-                       this.dispose();
-                   }else if(status == 1){
-                       JOptionPane.showMessageDialog(null, "Sorry, we couldn't find an account with that Username");
-                   }else{
-                       JOptionPane.showMessageDialog(null, "The password is incorrect, Pleasr try again"); 
-                   }
-                  
-                }
-        
-        
-             
+        String username = textboxUsername.getText();
+        String password = String.valueOf(textboxPassword.getPassword());
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "กรุณากรอกข้อมูลให้ครบ");
+        } else {
+            int status = LoginService.checkUser(username, password);
 
-       
+            if (status == 0) {
+                User user = LoginService.getUser(username);
+                FormLobby formLobby = new FormLobby(user);
+                formLobby.setVisible(true);
+                this.dispose();
+            } else if (status == 1) {
+                JOptionPane.showMessageDialog(null, "Sorry, we couldn't find an account with that Username");
+            } else {
+                JOptionPane.showMessageDialog(null, "The password is incorrect, Pleasr try again");
+            }
+
+        }
 
 
     }//GEN-LAST:event_buttonLoginMousePressed

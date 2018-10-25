@@ -44,7 +44,7 @@ public class FormSignup extends javax.swing.JFrame {
         }else if(SignUpService.checkStrongPassword(password) == false){
             JOptionPane.showMessageDialog(null, "Short password are easy to guess, Try one with at least 8 characters.");
         }else if(SignUpService.addUser(user)){
-                FormWelcome formWelcome = new FormWelcome(username);
+                FormWelcome formWelcome = new FormWelcome("jakgrit");
                 formWelcome.setVisible(true);
                 this.dispose(); 
         }else{

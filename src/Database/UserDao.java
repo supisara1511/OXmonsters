@@ -1,6 +1,5 @@
 package Database;
 
-
 import Class.User;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -41,7 +40,9 @@ public class UserDao {
     }
 
     public static boolean insert(User user) {
-        Map<String, Object> documentMap = new HashMap<String, Object>();
+        port = 27017;
+        mongo = new MongoClient("localhost", port);
+        db = mongo.getDatabase("OX");
         collection = db.getCollection("users");
         Document doc = new Document();
         try {
@@ -49,22 +50,14 @@ public class UserDao {
             doc.put("username", user.getUsername());
             doc.put("password", user.getPassword());
             doc.put("score", user.getScore());
-            doc.put("picture", Image.fileToBase64StringConversion(user.getPicture()));
-
-            MongoCollection<Document> docCollections = mongo.getDatabase("OX").getCollection("users");
-            Bson filter = Filters.eq("username", user.getUsername());
-            FindIterable<Document> documentList = docCollections.find(filter);
-
-            if (documentList != null) {
-                return false;
-            } else {
-                collection.insertOne(doc);
-                return true;
-            }
+            doc.put("pic", Image.fileToBase64StringConversion(user.getPicture()));
+            collection.insertOne(doc);
+            return true;
         } catch (Exception ex) {
+            System.out.println("ERROR");
             return false;
+
         }
-        
     }
 
     public static int delete(User user) {
@@ -80,18 +73,28 @@ public class UserDao {
         ArrayList<User> user = new ArrayList<>();
         while (cursor.hasNext()) {
             DBObject obj = cursor.next();
-            user.add(new User(obj));  
+            user.add(new User(obj));
         }
         return user;
     }
 
     public static User get(String username) {
+        port = 27017;
+        mongo = new MongoClient("localhost", port);
+        db = mongo.getDatabase("OX");
         DB database = mongo.getDB("OX");
         DBCollection coll = database.getCollection("users");
         DBObject query = new BasicDBObject();
-        query.put("name", username);
+        query.put("username", username);
         DBObject result = coll.findOne(query);
-        return new User(result);
+        if (result == null) {
+            return null;
+        } else {
+            User user = new User(result);
+            System.out.println(user);
+            return user;
+        }
+
     }
 
 }
